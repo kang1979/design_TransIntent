@@ -1,0 +1,60 @@
+/* ChatComposer — 0003_dark 패널 푸터. */
+.root {
+  flex: none;
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+}
+.capWarning {
+  max-width: 760px;
+  margin: 0 auto 8px;
+  font-size: 12px;
+  color: var(--warning);
+  text-align: center;
+}
+.bar {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  gap: 9px;
+  border: 1px solid var(--border2);
+  border-radius: 18px;
+  background: var(--input);
+  box-shadow: var(--shadow);
+  padding: 5px 5px 5px 16px;
+}
+.textarea {
+  flex: 1;
+  resize: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 14px;
+  padding: 11px 0;
+  line-height: 1.5;
+  max-height: 120px;
+}
+.textarea:disabled {
+  opacity: 0.7;
+}
+.sendBtn {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border: none;
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: var(--accent-fg);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: filter 0.12s;
+}
+.sendBtn:hover:not(:disabled) {
+  filter: brightness(1.07);
+}
+.sendBtn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}

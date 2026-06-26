@@ -1,0 +1,7 @@
+[
+  { "id": "chatgpt", "label": "ChatGPT", "template": "https://chatgpt.com/?q={q}", "maxUrlLength": 2048, "fallbackUrl": "https://chatgpt.com/" },
+  { "id": "claude", "label": "Claude", "template": "https://claude.ai/new?q={q}", "maxUrlLength": 2000, "fallbackUrl": "https://claude.ai/new" },
+  { "id": "gemini", "label": "Gemini", "template": null, "forceFallback": true, "fallbackUrl": "https://gemini.google.com/app" },
+  { "id": "grok", "label": "Grok", "template": "https://grok.com/?q={q}", "maxUrlLength": 2000, "fallbackUrl": "https://grok.com/" },
+  { "id": "perplexity", "label": "Perplexity", "template": "https://www.perplexity.ai/search?q={q}", "maxUrlLength": 1800, "fallbackUrl": "https://www.perplexity.ai/" }
+]

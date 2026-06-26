@@ -1,0 +1,64 @@
+/* ThemeToggle — 3테마 라디오 그룹 */
+.root {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-subtle);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.12s;
+}
+
+.option[data-active="true"] {
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.radio {
+  /* 시각적으로 숨기되 포커스·키보드 접근 유지 */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* radio에 직접 :focus-visible 적용 — label 안에 있어도 포커스 링은 label에 표시 */
+.radio:focus-visible + .label {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.label {
+  display: block;
+  padding: 4px 9px;
+  font-size: 12px;
+  font-family: var(--sans);
+  color: var(--text-muted);
+  line-height: 1.4;
+  user-select: none;
+  border-radius: 6px;
+}
+
+.option[data-active="true"] .label {
+  color: var(--text);
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .option {
+    transition: none;
+  }
+}

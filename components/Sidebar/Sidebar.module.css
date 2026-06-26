@@ -1,0 +1,395 @@
+/* Sidebar — 0003_dark 글래스. 패널 자체 글래스는 AppShell이 담당, 내부 레이아웃만. */
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+/* ── 브랜드 ── */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 18px 18px 14px;
+  flex: none;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  border-radius: 12px;
+}
+.brand:hover .brandName {
+  color: var(--accent);
+}
+.brand:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.brandText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+.brandName {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.3px;
+}
+.brandSub {
+  font-size: 10.5px;
+  color: var(--faint);
+  letter-spacing: 0.4px;
+}
+
+/* ── 새 대화 ── */
+.newChatWrap {
+  padding: 0 14px 12px;
+  flex: none;
+}
+.newChat {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: var(--accent-fg);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 8px 22px var(--accent-soft);
+  transition: filter 0.12s;
+}
+.newChat:hover {
+  filter: brightness(1.07);
+}
+
+/* ── 내비 ── */
+.nav {
+  display: flex;
+  gap: 6px;
+  padding: 0 14px 10px;
+  flex: none;
+}
+.navBtn {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  height: 38px;
+  border-radius: 11px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.navBtn:hover {
+  background: var(--panel);
+}
+.navBtn[data-active="true"] {
+  border-color: var(--border2);
+  background: var(--panel2);
+  color: var(--accent);
+}
+
+/* ── 히스토리 ── */
+.history {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 6px 8px 8px;
+}
+.empty {
+  padding: 18px 12px;
+  font-size: 12.5px;
+  color: var(--faint);
+  line-height: 1.6;
+  margin: 0;
+}
+.group {
+  margin-bottom: 4px;
+}
+.groupLabel {
+  padding: 10px 8px 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  color: var(--faint);
+  text-transform: uppercase;
+}
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 10px;
+  border-radius: 11px;
+  font-size: 13px;
+  color: var(--text);
+  border: 1px solid transparent;
+  transition: background 0.12s;
+}
+.row:hover {
+  background: var(--panel);
+}
+.row[data-active="true"] {
+  border-color: var(--border2);
+  background: var(--panel2);
+}
+.rowIcon {
+  flex: none;
+  opacity: 0.6;
+}
+.rowTitle {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+.renameInput {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg2);
+  border: 1px solid var(--accent);
+  border-radius: 7px;
+  color: var(--text);
+  font-size: 13px;
+  padding: 5px 8px;
+  outline: none;
+}
+
+/* 호버 시 노출되는 메뉴 버튼 */
+.menuBtn {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.12s, color 0.12s, background 0.12s;
+}
+.row:hover .menuBtn {
+  opacity: 0.6;
+}
+.menuBtn:hover {
+  opacity: 1;
+  color: var(--text);
+  background: var(--input);
+}
+.menuBtnOpen {
+  opacity: 1;
+}
+
+/* 항목 메뉴 팝오버 */
+.menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 6px;
+  z-index: 20;
+  min-width: 150px;
+  padding: 5px;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 13px;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.4);
+  animation: ti-pop 0.14s ease both;
+}
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 13px;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 13.5px;
+  cursor: pointer;
+  border-radius: 9px;
+  text-align: left;
+}
+.menuItem:hover {
+  background: var(--panel2);
+}
+.menuItemDanger {
+  color: #ff7a5c;
+}
+.menuItemDanger:hover {
+  background: rgba(255, 122, 92, 0.12);
+}
+
+/* ── 푸터 ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 11px 12px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4a5cff, #a44cff);
+  flex: none;
+  display: grid;
+  place-items: center;
+  color: var(--accent-fg);
+  font-weight: 600;
+  font-size: 12px;
+}
+.userMeta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  flex: 1;
+  min-width: 0;
+}
+.userName {
+  font-size: 13px;
+  font-weight: 600;
+}
+.userSub {
+  font-size: 10.5px;
+  color: var(--faint);
+}
+.settingsBtn {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+.settingsBtn:hover {
+  color: var(--text);
+  background: var(--input);
+  border-color: var(--border2);
+}
+.settingsBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 대화 삭제 확인 모달 (ContextPanel 모달과 동형 — 시각 일관성) */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(6, 8, 14, 0.55);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  animation: ti-pop 0.18s ease both;
+}
+.modal {
+  width: 100%;
+  max-width: 380px;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  padding: 24px;
+  text-align: center;
+  animation: ti-pop 0.22s ease both;
+}
+.modalIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: 15px;
+  background: color-mix(in srgb, var(--error) 14%, transparent);
+  display: grid;
+  place-items: center;
+  margin: 0 auto 16px;
+}
+.modalTitle {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 7px;
+  color: var(--text);
+}
+.modalValue {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.55;
+  word-break: break-word;
+}
+.modalActions {
+  display: flex;
+  gap: 9px;
+  margin-top: 20px;
+}
+.cancelBtn {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid var(--border2);
+  border-radius: 13px;
+  background: var(--input);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.cancelBtn:hover {
+  background: var(--panel2);
+}
+.cancelBtn:focus-visible,
+.deleteBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.deleteBtn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 13px;
+  background: var(--error);
+  color: var(--accent-fg);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--error) 30%, transparent);
+}
+.deleteBtn:hover {
+  filter: brightness(1.06);
+}

@@ -1,0 +1,23 @@
+.mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  background: linear-gradient(140deg, #1a1d27, #070810);
+  border: 1px solid var(--border2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+.grid {
+  display: grid;
+}
+.dotAccent,
+.dotLight {
+  display: block;
+  transform: rotate(45deg);
+  border-radius: 1.5px;
+}
+.dotAccent {
+  background: var(--accent);
+}
+.dotLight {
+  background: #cfd3dd;
+}

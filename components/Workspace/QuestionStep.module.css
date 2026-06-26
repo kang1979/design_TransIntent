@@ -1,0 +1,417 @@
+/* QuestionStep — 0003_dark. */
+.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+.root {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 30px 28px 40px;
+}
+/* 질문 생성 대기 스켈레톤 */
+/* 상태 스트립 — 실제 progressHead 자리에 안내 통합(가운데 단독 문구가 아니라 폼 헤드에 정렬) */
+.skHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px; /* progressHead와 동일 */
+}
+.skStatusInline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.skDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: ti-pulse 1.2s ease-in-out infinite;
+}
+@keyframes ti-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1); }
+}
+.skSeg { width: 96px; height: 30px; border-radius: 11px; } /* seg 토글 자리 */
+.skHint { width: 38%; height: 13px; margin: 0 0 20px; } /* hint 자리 */
+.skNav { display: flex; justify-content: flex-end; margin-top: 24px; } /* navRow 자리 */
+.skBtn { width: 96px; height: 42px; border-radius: 13px; } /* primaryBtn 자리 */
+/* shimmer 자리표시자 공통 — 토큰만 사용(하드코딩 hex 금지) */
+.sk {
+  display: block;
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--input) 0%, var(--panel2) 50%, var(--input) 100%);
+  background-size: 200% 100%;
+  animation: ti-shimmer 1.4s ease-in-out infinite;
+}
+.skCat { width: 84px; height: 12px; margin-bottom: 12px; }
+.skQ1 { width: 70%; height: 24px; margin-bottom: 9px; }
+.skQ2 { width: 45%; height: 24px; margin-bottom: 6px; }
+.skOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.skOpt { height: 52px; border-radius: 14px; } /* .option 높이/모서리와 일치 */
+.skOpt:nth-child(2) { animation-delay: 0.12s; }
+.skOpt:nth-child(3) { animation-delay: 0.24s; }
+.skOpt:nth-child(4) { animation-delay: 0.36s; }
+/* 진행바 indeterminate 스윕(브랜드 액센트) */
+.barIndet {
+  height: 100%;
+  width: 40%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  animation: ti-slide 1.3s ease-in-out infinite;
+}
+@keyframes ti-slide {
+  0% { margin-left: -40%; }
+  100% { margin-left: 100%; }
+}
+/* 모션 최소화 사용자 — 애니메이션 정지, 정적 자리표시자만 */
+@media (prefers-reduced-motion: reduce) {
+  .sk, .barIndet, .skDot { animation: none; }
+  .barIndet { margin-left: 0; width: 100%; opacity: 0.6; }
+}
+
+/* 진행 + 모드 토글 */
+.progressHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.progressLabel {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.seg {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  background: var(--input);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+}
+.segBtn {
+  padding: 6px 13px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 500;
+  background: transparent;
+  color: var(--muted);
+  transition: background 0.12s, color 0.12s;
+}
+.segBtn[data-on="true"] {
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-weight: 600;
+}
+.bar {
+  height: 6px;
+  border-radius: 6px;
+  background: var(--input);
+  overflow: hidden;
+  margin-bottom: 26px;
+}
+.barFill {
+  height: 100%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transition: width 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* STEP 질문 */
+.category {
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.question {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: -0.4px;
+  margin: 0 0 6px;
+  text-wrap: balance;
+}
+.hint {
+  font-size: 13px;
+  color: var(--faint);
+  margin: 0 0 20px;
+}
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 15px 16px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 14.5px;
+  text-align: left;
+  border: 1px solid var(--border);
+  background: var(--input);
+  color: var(--text);
+  transition: border-color 0.12s, background 0.12s;
+}
+.option:hover {
+  border-color: var(--border2);
+}
+.option[data-on="true"] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.mark {
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--border2);
+  display: grid;
+  place-items: center;
+  color: var(--accent-fg);
+  font-size: 12px;
+  flex: none;
+}
+.mark[data-shape="circle"] {
+  border-radius: 50%;
+}
+.mark[data-shape="box"] {
+  border-radius: 7px;
+}
+.mark[data-on="true"] {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+.optLabel {
+  flex: 1;
+}
+
+/* 직접 입력 행 */
+.customRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--input);
+}
+.customRow[data-has="true"] {
+  border-color: var(--accent);
+}
+.customMark {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  border: 1.5px solid var(--border2);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  flex: none;
+  color: var(--muted);
+}
+.customInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-size: 14.5px;
+}
+.customAdd {
+  flex: none;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 9px;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.customAdd:hover {
+  filter: brightness(1.07);
+}
+
+/* 건너뛰기 */
+.skip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: left;
+  border: 1px dashed var(--border2);
+  background: transparent;
+  color: var(--muted);
+  transition: border-color 0.12s, color 0.12s;
+}
+.skip:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+.skipMark {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border2);
+  display: grid;
+  place-items: center;
+  flex: none;
+  font-size: 13px;
+}
+
+/* 내비 */
+.navRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+.spacer {
+  flex: 1;
+}
+.prevBtn {
+  padding: 11px 18px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--input);
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.prevBtn:hover {
+  background: var(--panel2);
+  border-color: var(--border2);
+}
+.primaryBtn {
+  padding: 11px 20px;
+  border: none;
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: var(--accent-fg);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px var(--accent-soft);
+  transition: filter 0.12s;
+}
+.primaryBtn:hover {
+  filter: brightness(1.07);
+}
+
+/* ALL 모드 */
+.allList {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+/* 맥락 '수정'으로 이동해 온 질문을 잠깐 강조 */
+.qHighlight {
+  outline: 2px solid var(--accent);
+  outline-offset: 8px;
+  border-radius: 10px;
+  animation: ti-pop 0.25s ease both;
+}
+.categorySm {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.questionSm {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0 0 12px;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  align-items: center;
+}
+.chip {
+  padding: 9px 14px;
+  border-radius: 11px;
+  cursor: pointer;
+  font-size: 13.5px;
+  border: 1px solid var(--border);
+  background: var(--input);
+  color: var(--text);
+  transition: border-color 0.12s, background 0.12s, color 0.12s;
+}
+.chip:hover {
+  border-color: var(--border2);
+}
+.chip[data-on="true"] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.chipInput {
+  min-width: 120px;
+  padding: 9px 13px;
+  border: 1px dashed var(--border2);
+  border-radius: 11px;
+  background: transparent;
+  color: var(--text);
+  font-size: 13.5px;
+  outline: none;
+}
+
+/* 질문 더 받기 */
+.moreRow {
+  margin-top: 26px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.moreBtn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: var(--input);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.moreBtn:hover:not(:disabled) {
+  background: var(--panel2);
+}
+.moreBtn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.moreHint {
+  font-size: 12px;
+  color: var(--faint);
+}

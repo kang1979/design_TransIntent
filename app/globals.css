@@ -1,0 +1,32 @@
+@import "../styles/theme.css";
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a { color: inherit; text-decoration: none; }
+textarea, input, button { font-family: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* 글래스 스크롤바 */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ── 0003 디자인 keyframes ── */
+@keyframes meshA { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(8%, 6%) scale(1.15); } }
+@keyframes meshB { 0%, 100% { transform: translate(0, 0) scale(1.1); } 50% { transform: translate(-7%, 8%) scale(0.95); } }
+@keyframes meshC { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(6%, -8%) scale(1.2); } }
+@keyframes ti-spin { to { transform: rotate(360deg); } }
+@keyframes ti-blink { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+@keyframes ti-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes ti-pop { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+@keyframes ti-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* 화면 진입 공통 애니메이션 — 각 화면 루트에 부여 */
+.ti-rise { animation: ti-rise 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both; }

@@ -1,0 +1,109 @@
+/* theme.css — 0003_dark 정본 디자인 토큰 (출처: TransIntent_0003_dark.html, docs/DESIGN_TOKENS.md)
+   전환: <html data-theme="dark|light">. 기본은 dark. 컴포넌트는 항상 var(--token)만 사용.
+   글래스모피즘 + mesh 배경. 폰트: DM Sans(본문) · Space Grotesk(디스플레이). */
+
+:root,
+[data-theme="dark"] {
+  /* 폰트 — next/font 변수(layout.tsx)에 폴백 스택 결합 */
+  --sans: var(--font-dm-sans), 'DM Sans', system-ui, -apple-system, sans-serif;
+  --display: var(--font-space-grotesk), 'Space Grotesk', var(--sans);
+  --mono: var(--font-space-grotesk), 'Space Grotesk', ui-monospace, 'JetBrains Mono', monospace;
+
+  /* 표면/배경 */
+  --bg: #0a0c11;
+  --bg2: #0e1118;
+  --panel: rgba(255, 255, 255, 0.045);
+  --panel2: rgba(255, 255, 255, 0.07);
+  --input: rgba(255, 255, 255, 0.06);
+  --sidebar: rgba(14, 17, 24, 0.55);
+
+  /* 텍스트 */
+  --text: #eef0f4;
+  --muted: rgba(238, 240, 244, 0.56);
+  --faint: rgba(238, 240, 244, 0.36);
+
+  /* 보더 */
+  --border: rgba(255, 255, 255, 0.10);
+  --border2: rgba(255, 255, 255, 0.17);
+
+  /* 액센트 */
+  --accent: #ff7a3c;
+  --accent2: #ff9a5c;
+  --accent-soft: rgba(255, 122, 60, 0.15);
+
+  /* 그림자 / 효과 */
+  --shadow: 0 18px 60px rgba(0, 0, 0, 0.5);
+  --glasshi: rgba(255, 255, 255, 0.08);
+
+  /* mesh 배경 그라데이션 */
+  --mesh-a: rgba(58, 86, 255, 0.55);
+  --mesh-b: rgba(150, 70, 255, 0.45);
+  --mesh-c: rgba(255, 90, 60, 0.42);
+
+  /* 상태색 */
+  --error: #ff4d4d;
+  --success: #3ad17a;
+  --warning: #ffbd2e;
+
+  /* 라운드 */
+  --radius: 22px;
+  --radius-sm: 14px;
+
+  /* ── 구 토큰 별칭(전환기 호환; 점진 제거) ── */
+  --accent-hover: var(--accent2);
+  --accent-text: var(--accent);
+  --accent-tint: var(--accent-soft);
+  --accent-fg: #ffffff;
+  --surface: var(--panel);
+  --bg-subtle: var(--bg2);
+  --sidebar-bg: var(--sidebar);
+  --border-strong: var(--border2);
+  --code-bg: var(--bg2);
+  --text-muted: var(--muted);
+  --text-faint: var(--faint);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: var(--shadow);
+}
+
+[data-theme="light"] {
+  --bg: #e9ebf0;
+  --bg2: #f5f6f9;
+  --panel: rgba(255, 255, 255, 0.72);
+  --panel2: rgba(255, 255, 255, 0.92);
+  --input: rgba(255, 255, 255, 0.85);
+  --sidebar: rgba(255, 255, 255, 0.6);
+
+  --text: #14161c;
+  --muted: rgba(20, 22, 28, 0.62);
+  --faint: rgba(20, 22, 28, 0.42);
+
+  --border: rgba(20, 22, 28, 0.09);
+  --border2: rgba(20, 22, 28, 0.15);
+
+  --accent: #ee5a18;
+  --accent2: #ff7a3c;
+  --accent-soft: rgba(238, 90, 24, 0.12);
+
+  --shadow: 0 18px 50px rgba(30, 40, 80, 0.12);
+  --glasshi: rgba(255, 255, 255, 0.55);
+
+  --mesh-a: rgba(80, 110, 255, 0.4);
+  --mesh-b: rgba(170, 90, 255, 0.32);
+  --mesh-c: rgba(255, 110, 80, 0.34);
+
+  --error: #d2543b;
+  --success: #3fa66a;
+  --warning: #e0a03a;
+
+  --shadow-sm: 0 1px 2px rgba(120, 70, 30, 0.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

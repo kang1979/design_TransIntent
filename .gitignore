@@ -1,0 +1,19 @@
+node_modules/
+.next/
+out/
+.env*
+!.env.example
+*.tsbuildinfo
+.DS_Store
+.vercel
+
+# 에디터/도구 산출물
+.vscode/
+.playwright-mcp/
+
+# 서브에이전트 런타임 메모리(커밋 제외)
+.claude/agent-memory/
+
+# 배포 레포 제외: 시안 목업(설계 보관용, 로컬 build 브랜치에만 존재)
+TransIntent_000*.html
+index.html

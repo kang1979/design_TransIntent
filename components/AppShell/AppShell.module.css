@@ -1,0 +1,198 @@
+/* AppShell — floating 글래스 3패널 (0003_dark). */
+
+.shell {
+  position: fixed;
+  inset: 0;
+  height: 100dvh;
+  width: 100vw;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+}
+
+/* ── mesh 배경 ── */
+.mesh {
+  position: absolute;
+  inset: -20% -10%;
+  pointer-events: none;
+  filter: blur(90px);
+  opacity: 0.9;
+  z-index: 0;
+}
+.meshA,
+.meshB,
+.meshC {
+  position: absolute;
+  border-radius: 50%;
+  display: block;
+}
+.meshA {
+  top: 6%;
+  left: 8%;
+  width: 46vw;
+  height: 46vw;
+  background: radial-gradient(circle at 50% 50%, var(--mesh-a), transparent 65%);
+  animation: meshA 22s ease-in-out infinite;
+}
+.meshB {
+  top: 30%;
+  right: 4%;
+  width: 42vw;
+  height: 42vw;
+  background: radial-gradient(circle at 50% 50%, var(--mesh-b), transparent 65%);
+  animation: meshB 26s ease-in-out infinite;
+}
+.meshC {
+  bottom: -6%;
+  left: 30%;
+  width: 48vw;
+  height: 48vw;
+  background: radial-gradient(circle at 50% 50%, var(--mesh-c), transparent 66%);
+  animation: meshC 30s ease-in-out infinite;
+}
+
+/* ── 패널 행 ── */
+.row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding: 14px;
+  gap: 14px;
+}
+
+/* 공통 글래스 패널 처리 */
+.sidebar,
+.panel,
+.context {
+  background: var(--panel);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 268px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  background: var(--sidebar);
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  gap: 14px;
+}
+
+.panel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.context {
+  width: 300px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── top-bar ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  flex: none;
+}
+.topbarLeft {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+.iconBtn {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--input);
+  color: var(--muted);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.12s, color 0.12s;
+}
+.iconBtn:hover {
+  background: var(--panel2);
+  color: var(--text);
+}
+.title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 3px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex: none;
+}
+.statusPill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: var(--input);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--muted);
+  flex: none;
+}
+.statusDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.notice {
+  flex: none;
+}
+
+/* ── 모바일: 사이드바·맥락 패널 숨김(추후 드로어), 메인 단독 ── */
+@media (max-width: 760px) {
+  .row {
+    padding: 8px;
+    gap: 8px;
+  }
+  .sidebar,
+  .context {
+    display: none;
+  }
+  .statusPill {
+    display: none;
+  }
+}
